@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
+using System.Diagnostics;
 
 public class SayaTubeUser
 {
@@ -12,6 +14,8 @@ public class SayaTubeUser
 
     public SayaTubeUser(string username)
     {
+        Contract.Requires(username != null && username.Length <= 100, "Nama username memiliki panjang maksimal 100 karakter dan tidak berupa null");
+
         this.Username = username;
         this.uploadedVideos = new List<SayaTubeVideo>();
     }
@@ -23,7 +27,8 @@ public class SayaTubeUser
 
     public void AddVideo(SayaTubeVideo mVideo)
     {
-        uploadedVideos.Add(mVideo);
+        Debug.Assert(mVideo != null && mVideo.GetPlayCount() < int.MaxValue, "Play count out of range");
+       this.uploadedVideos.Add(mVideo);
     }
 
     public void PrintAllVideoPlaycount()

@@ -13,6 +13,8 @@ public class SayaTubeVideo
 
     public SayaTubeVideo(string title)
     {
+        Contract.Requires(title != null && title.Length <= 200, "Judul video memiliki panjang maksimal 200 karakter dan tidak berupa null");
+
         this.id = RandomNumber();
         this.title = title;
         this.playCount = 0;
@@ -26,6 +28,7 @@ public class SayaTubeVideo
 
     public void IncreasePlayCount(int count)
     {
+        Contract.Requires(count > 0 && count <= 25000000, "Input penambahan Play Count 25000000");
         playCount += count;
     }
 
@@ -39,5 +42,10 @@ public class SayaTubeVideo
     public string GetTitle()
     {
         return title;
+    }
+
+    public int GetPlayCount()
+    {
+        return playCount;
     }
 }
